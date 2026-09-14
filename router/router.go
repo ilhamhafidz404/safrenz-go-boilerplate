@@ -19,5 +19,11 @@ func SetupRouter(config *RouterConfig) {
 	api := config.App.Group("/api/v1")
 
 	api.Get("/hello", config.HelloHandler.GetHello)
+
+	//
 	api.Get("/users", config.UserHandler.GetUsers)
+	api.Get("/users/:id", config.UserHandler.GetUserByID)
+	api.Post("/users", config.UserHandler.CreateUser)
+	api.Put("/users/:id", config.UserHandler.UpdateUser)
+	api.Delete("/users/:id", config.UserHandler.DeleteUser)
 }

@@ -4,27 +4,29 @@ import (
 	"safrenz-go-boilerplate/internal/handler"
 	"safrenz-go-boilerplate/internal/repository"
 	"safrenz-go-boilerplate/internal/service"
+	"safrenz-go-boilerplate/pkg/platform"
 
+	"github.com/redis/go-redis/v9"
 	"gorm.io/gorm"
 )
-
-// Inisialisasi handler, service, dan repository
 
 type Handlers struct {
 	HelloHandler *handler.HelloHandler
 	UserHandler  *handler.UserHandler
 }
 
-func InitApp(db *gorm.DB) *Handlers {
-	// 1. Repositories
+func InitApp(db *gorm.DB, rdb *redis.Client) *Handlers {
+	roleClient := platform.NewRoleClient(rdb)
+
+	// 2. Repositories
 	helloRepo := repository.NewHelloRepository()
 	userRepo := repository.NewUserRepository(db)
 
-	// 2. Services
+	// 3. Services
 	helloService := service.NewHelloService(helloRepo)
-	userService := service.NewUserService(userRepo)
+	userService := service.NewUserService(userRepo, roleClient)
 
-	// 3. Handlers
+	// 4. Handlers
 	helloHandler := handler.NewHelloHandler(helloService)
 	userHandler := handler.NewUserHandler(userService)
 

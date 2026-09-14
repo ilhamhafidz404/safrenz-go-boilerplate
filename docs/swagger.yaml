@@ -1,0 +1,190 @@
+basePath: /
+definitions:
+  dto.CreateUserRequest:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        minLength: 6
+        type: string
+      role:
+        type: integer
+    required:
+    - email
+    - name
+    - password
+    - role
+    type: object
+  dto.UpdateUserRequest:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      role:
+        type: integer
+    type: object
+host: localhost:3000
+info:
+  contact: {}
+  description: API Documentation for Safrenz Go Boilerplate.
+  title: Safrenz Go Boilerplate API
+  version: "1.0"
+paths:
+  /api/v1/users:
+    get:
+      consumes:
+      - application/json
+      description: Mengambil daftar seluruh user beserta nama role dari third-party
+        API/Redis
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Berhasil mengambil data user
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Gagal mengambil data user
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Ambil semua data user
+      tags:
+      - Users
+    post:
+      consumes:
+      - application/json
+      description: Menambahkan data user baru ke dalam database
+      parameters:
+      - description: Payload pembuatan user
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Berhasil membuat user baru
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Payload request tidak valid
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Gagal membuat user baru
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Buat user baru
+      tags:
+      - Users
+  /api/v1/users/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Menghapus user dari database berdasarkan ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Berhasil menghapus user
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: ID user tidak valid
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: User tidak ditemukan
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Hapus data user
+      tags:
+      - Users
+    get:
+      consumes:
+      - application/json
+      description: Mengambil detail informasi user berdasarkan ID yang diberikan
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Berhasil mengambil detail user
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: ID user tidak valid
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: User tidak ditemukan
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Ambil detail user berdasarkan ID
+      tags:
+      - Users
+    put:
+      consumes:
+      - application/json
+      description: Perbarui data user yang sudah ada berdasarkan ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Payload perbaikan user
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UpdateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Berhasil memperbarui data user
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: ID atau payload request tidak valid
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Gagal memperbarui user
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Perbarui data user
+      tags:
+      - Users
+swagger: "2.0"

@@ -13,13 +13,13 @@ func UserSeeder(db *gorm.DB) {
 			Name:     "Admin Safrenz",
 			Email:    "admin@safrenz.com",
 			Password: "password",
-			Role:     "admin",
+			Role:     1,
 		},
 		{
 			Name:     "Intern Member",
 			Email:    "intern@safrenz.com",
 			Password: "password",
-			Role:     "intern",
+			Role:     2,
 		},
 	}
 
