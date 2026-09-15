@@ -8,7 +8,7 @@ Starter template Backend Safrenz
 
 ```bash
 # 1. Clone & install dependencies
-git clone [https://github.com/username/safrenz-go-boilerplate.git](https://github.com/username/safrenz-go-boilerplate.git)
+git clone https://github.com/ilhamhafidz404/safrenz-go-boilerplate.git
 cd safrenz-go-boilerplate
 go mod tidy
 
